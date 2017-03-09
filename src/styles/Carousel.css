@@ -23,6 +23,12 @@
   to { transform: rotate(360deg); }
 }
 
+.normalDot{
+  cursor: pointer;
+}
+
 .selectedDot{
+  cursor: pointer;
+  font-size: 25px;
   color: red;
 }

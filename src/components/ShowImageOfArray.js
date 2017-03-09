@@ -5,7 +5,7 @@ class ShowImageOfArray extends Component {
     render() {
         let imageToShow = this.props.array[this.props.index];
         return (
-            <div style={{border: ' 2 px soild black'}}>
+            <div style={{border: '2px solid black', width: '100px'}}>
                 <img src={imageToShow} alt="Hangman" />
             </div>
         );
