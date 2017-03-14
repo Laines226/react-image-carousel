@@ -23,19 +23,6 @@ class Carousel extends Component {
     }
 
     this.jumpTo = this.jumpTo.bind(this);
-    this.goLeft = this.goLeft.bind(this);
-    this.goRight = this.goRight.bind(this);
-    this.handleClickOnDot = this.handleClickOnDot.bind(this);
-  }
-  /**
-   * handles the click on a dot
-   * @param event
-   * event should be an tag with an id attribute
-   *  
-   */
-  handleClickOnDot(event) {
-    console.log("clickedOnDot [event.target]", event.target.id);
-    this.jumpTo(parseInt(event.target.id, 0));
   }
   /**
    * set the currentIndex - state
@@ -44,55 +31,38 @@ class Carousel extends Component {
    * 
    */
   jumpTo(newIndex) {
+    if (newIndex >= this.props.imageArray.length) {
+      newIndex = 0;
+    }
+    else if (newIndex < 0) {
+      newIndex = this.props.imageArray.length - 1;
+    }
     console.log("jumpTo", newIndex);
     this.setState({ currentIndex: newIndex });
   }
 
-  /**
-   * shows the image to the left
-   * under zero its jumps to the index this.props.imageArray.length -1
-   * 
-   */
-  goLeft() {
-    let newIndex = this.state.currentIndex - 1
-    if (newIndex < 0) {
-      newIndex = this.props.imageArray.length - 1;
-    }
-    this.setState({ currentIndex: newIndex });
-  }
-
-  /**
-   * shows the image to the right
-   * over this.props.imageArray.length -1 its jumps to index zero 
-   * 
-   */
-  goRight() {
-    let newIndex = this.state.currentIndex + 1
-    if (newIndex >= this.props.imageArray.length) {
-      newIndex = 0;
-    }
-    this.setState({ currentIndex: newIndex });
-  }
   render() {
     //onClick={this.jumpTo(index)}
     let dots = (
-      <div>
+      <div className="dot-container">
         {
           this.props.imageArray.map((element, index) => {
-            let spanCn = "normalDot";
+            let spanCn = "dot normalDot";
             if (index === this.state.currentIndex) {
-              spanCn = "selectedDot";
+              spanCn = "dot selectedDot";
             }
-            return (<span onClick={(e) => this.handleClickOnDot(e)} className={spanCn} key={index} id={index}>o</span>);
+            return (<span onClick={(e) => {this.jumpTo(parseInt(e.target.id, 0))}} className={spanCn} key={index} id={index}>o</span>);
           }, this)
         }
       </div>
     );
     return (
       <div className="Carousel">
+        <div className="photowrapper">
         <ShowImageOfArray array={this.props.imageArray} index={this.state.currentIndex} />
-        <p><span>{this.state.currentIndex + 1}/{this.props.imageArray.length}</span></p>
-        <p><span onClick={this.goLeft}>Left</span>     <span onClick={this.goRight}>Right</span></p>
+        <span className="aside, aside-1" onClick={() => {this.jumpTo(this.state.currentIndex -1 )}}>&larr;</span> <span className="aside, aside-2" onClick={() => {this.jumpTo(this.state.currentIndex +1 )}}>&rarr;</span>
+        </div>
+        <p><span><input type="number" min={0} max={this.props.imageArray.length + 1} value={this.state.currentIndex + 1} onChange={(event) => {this.jumpTo(event.target.value - 1)}} />/{this.props.imageArray.length}</span></p>
         {dots}
       </div>
     );
