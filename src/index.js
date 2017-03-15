@@ -1,6 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Carousel from './components/Carousel';
+import { Provider } from 'react-redux'
+import { createStore } from 'redux'
+import image from './reducers'
+import ImageCarousel from './containers/ImageCarousel';
 import './styles/index.css';
 
 import HangImageEmpty from './images/hangmanEmpty.png';
@@ -15,10 +18,15 @@ import HangImage07 from './images/hangman07.png';
 import HangImage08 from './images/hangman08.png';
 import HangImage09 from './images/hangman09.png';
 
+let store = createStore(image)
+
+
 let imageArray = [HangImageEmpty, HangImage00, HangImage01, HangImage02, HangImage03, HangImage04, HangImage05, HangImage06, HangImage07, HangImage08, HangImage09];
 let startIndex= 0;
 
 ReactDOM.render(
-  <Carousel imageArray={imageArray} startIndex={startIndex} />,
+  <Provider store={store}>
+    <ImageCarousel imageArray={imageArray} startIndex={startIndex} />
+  </Provider>,
   document.getElementById('root')
 );
