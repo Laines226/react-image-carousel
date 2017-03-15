@@ -4,10 +4,9 @@ export const JUMP_TO = 'JUMP_TO';
 
 /** action creators */
 
-export function jumpTo(index, maxIndex) {
+export function jumpTo(index) {
     return {
         type: JUMP_TO,
-        index,
-        maxIndex
+        index
     }
 }
