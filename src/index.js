@@ -17,11 +17,14 @@ import HangImage06 from './images/hangman06.png';
 import HangImage07 from './images/hangman07.png';
 import HangImage08 from './images/hangman08.png';
 import HangImage09 from './images/hangman09.png';
-
-let store = createStore(image)
-
-
 let imageArray = [HangImageEmpty, HangImage00, HangImage01, HangImage02, HangImage03, HangImage04, HangImage05, HangImage06, HangImage07, HangImage08, HangImage09];
+
+let store = createStore(image, {
+  imageArray,
+  currentIndex: 0
+}, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
+
+
 let startIndex= 0;
 
 ReactDOM.render(
